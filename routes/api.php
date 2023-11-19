@@ -31,4 +31,3 @@ Route::delete('/subjects/{subject}', [SubjectController::class, 'destroy']);
 
 
 
-

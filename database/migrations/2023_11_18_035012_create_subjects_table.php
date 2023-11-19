@@ -17,7 +17,6 @@ class CreateSubjectsTable extends Migration
             $table->id();
             $table->string('name');
             $table->string('category');
-            // $table->string('user_id');
             $table->string('image')->default('default.jpg');
             $table->timestamps(); // เพิ่ม timestamp สำหรับการบันทึก created_at และ updated_at
         });

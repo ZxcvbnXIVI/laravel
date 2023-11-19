@@ -10,6 +10,7 @@ class Subject extends Model
     protected $table = 'subjects';
 
     protected $fillable = ['name', 'category', 'image'];
+
     protected $attributes = [
         'image' => 'default.jpg',
     ];
@@ -17,4 +18,3 @@ class Subject extends Model
 
     use HasFactory;
 }
-
