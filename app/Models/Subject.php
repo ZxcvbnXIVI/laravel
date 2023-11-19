@@ -9,7 +9,11 @@ class Subject extends Model
 {
     protected $table = 'subjects';
 
-    protected $fillable = ['name', 'category'];
+    protected $fillable = ['name', 'category', 'image'];
+    protected $attributes = [
+        'image' => 'default.jpg',
+    ];
+
 
     use HasFactory;
 }
