@@ -26,7 +26,7 @@ Route::get('/items/{id}', [ApiController::class, 'show']);
 // เพิ่ม route สำหรับ CRUD operations ของ subjects
 Route::get('/subjects', [SubjectController::class, 'index']);
 Route::post('/subjects', [SubjectController::class, 'store']); 
-Route::put('/subjects/{subject}', [SubjectController::class, 'update']);
+Route::post('/subjects/{subject}', [SubjectController::class, 'update']); //ใช้ put ส่ง formdataไม่ได้
 Route::delete('/subjects/{subject}', [SubjectController::class, 'destroy']);
 
 

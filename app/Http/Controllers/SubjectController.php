@@ -57,22 +57,21 @@ public function store(Request $request)
 public function update(Request $request, $id)
 {
     try {
-        // ตรวจสอบข้อมูลที่ส่งมาจากฟอร์ม
-        $request->validate([
-            'name' => 'required|string',
-            'category' => 'required|string',
-            'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048', // ตรวจสอบไฟล์รูปภาพ
-        ]);
-
-        // ค้นหา subject ที่ต้องการอัปเดต
+        // ค้นหา 
         $subject = Subject::findOrFail($id);
 
         // อัปเดตข้อมูล
-        $subject->name = $request->name;
-        $subject->category = $request->category;
+        if ($request->has('name')) {
+            $subject->name = $request->name;
+        }
 
-        // ตรวจสอบการอัปโหลดรูปภาพ
+        if ($request->has('category')) {
+            $subject->category = $request->category;
+        }
+
+        // ตรวจสอบ
         if ($request->hasFile('image')) {
+            // $request->hasFile('image') มีค่าเป็น true ถ้ามีไฟล์ถูกส่งมา
             $image = $request->file('image');
             $imageName = time().'.'.$image->getClientOriginalExtension();
 
@@ -105,6 +104,8 @@ public function update(Request $request, $id)
         ]);
     }
 }
+
+
 
 
 //delete
