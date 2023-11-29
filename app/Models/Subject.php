@@ -7,14 +7,15 @@ use Illuminate\Database\Eloquent\Model;
 
 class Subject extends Model
 {
-    protected $table = 'subjects';
-
-    protected $fillable = ['name', 'category', 'image'];
-
-    protected $attributes = [
-        'image' => 'default.jpg',
-    ];
-
-
     use HasFactory;
+
+    protected $table = 'subjects'; // ระบุชื่อตาราง
+    protected $primaryKey = 'SubjectID';
+
+    protected $fillable = [
+        'SubjectName',
+        'Description',
+        'PlaylistLink',
+    ];
+    public $timestamps = true;
 }

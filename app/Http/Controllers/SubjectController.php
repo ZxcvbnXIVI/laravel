@@ -1,119 +1,85 @@
 <?php
 
 namespace App\Http\Controllers;
-use Illuminate\Support\Facades\Storage;
-use Intervention\Image\Facades\Image;
+
 use Illuminate\Http\Request;
 use App\Models\Subject;
 
 class SubjectController extends Controller
 {
-    
-//getAll
-public function index()
-{
-    $subjects = Subject::all();
-    return response()->json($subjects);
-}
-//เพิ่่ม
-public function store(Request $request)
-{
-    try {
-        $request->validate([
-            'name' => 'required|string',
-            'category' => 'required|string',
-            'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048', // ตรวจสอบ
-        ]);
-
-        $subject = new Subject;
-        $subject->name = $request->name;
-        $subject->category = $request->category;
-
-        if ($request->hasFile('image')) {
-            $image = $request->file('image');
-            $imageName = time().'.'.$image->getClientOriginalExtension();
-
-            // Save at storage/app/public/images/subjects
-            Storage::putFileAs('public/images/subjects', $image, $imageName);
-
-            // Save DB
-            $subject->image = $imageName;
-        }
-        $subject->save();
-
-        return response()->json([
-            'success' => true,
-            'message' => 'Subject created successfully',
-            'data' => $subject
-        ]);
-    } catch (\Exception $e) {
-        return response()->json([
-            'success' => false,
-            'message' => 'Error creating subject: ' . $e->getMessage(),
-        ]);
+    public function index()
+    {
+        $subjects = Subject::all();
+        return response()->json($subjects);
     }
-}
-//update
-public function update(Request $request, $id)
-{
-    try {
-        // ค้นหา 
-        $subject = Subject::findOrFail($id);
 
-        // อัปเดตข้อมูล
-        if ($request->has('name')) {
-            $subject->name = $request->name;
+    public function store(Request $request)
+    {
+        try {
+            $request->validate([
+                'SubjectName' => 'required|string',
+                'Description' => 'required|string',
+                'PlaylistLink' => 'required|string',
+            ]);
+
+            $subject = new Subject;
+            $subject->SubjectName = $request->SubjectName;
+            $subject->Description = $request->Description;
+            $subject->PlaylistLink = $request->PlaylistLink;
+            $subject->save();
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Subject created successfully',
+                'data' => $subject
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Error creating subject: ' . $e->getMessage(),
+            ]);
         }
-
-        if ($request->has('category')) {
-            $subject->category = $request->category;
-        }
-
-        // ตรวจสอบ
-        if ($request->hasFile('image')) {
-            // $request->hasFile('image') มีค่าเป็น true ถ้ามีไฟล์ถูกส่งมา
-            $image = $request->file('image');
-            $imageName = time().'.'.$image->getClientOriginalExtension();
-
-            // ลบรูปเก่า (ถ้ามี)
-            if ($subject->image) {
-                Storage::delete('public/images/subjects/'.$subject->image);
-            }
-
-            // บันทึกไฟล์รูปภาพใหม่
-            Storage::putFileAs('public/images/subjects', $image, $imageName);
-            $subject->image = $imageName;
-        }
-
-        $subject->save();
-
-        return response()->json([
-            'success' => true,
-            'message' => 'Subject updated successfully',
-            'data' => $subject
-        ]);
-    } catch (\Illuminate\Validation\ValidationException $e) {
-        return response()->json([
-            'success' => false,
-            'message' => 'Validation error: ' . $e->validator->errors(),
-        ]);
-    } catch (\Exception $e) {
-        return response()->json([
-            'success' => false,
-            'message' => 'Error updating subject: ' . $e->getMessage(),
-        ]);
     }
-}
 
+    public function update(Request $request, $id)
+    {
+        try {
+            $subject = Subject::findOrFail($id);
 
+            $request->validate([
+                'SubjectName' => 'string',
+                'Description' => 'string',
+                'PlaylistLink' => 'string',
+            ]);
 
+            $subject->fill($request->all());
+            $subject->save();
 
-//delete
-public function destroy(Subject $subject)
-{
-    $subject->delete();
+            return response()->json([
+                'success' => true,
+                'message' => 'Subject updated successfully',
+                'data' => $subject
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Error updating subject: ' . $e->getMessage(),
+            ]);
+        }
+    }
 
-    return response()->json(['success' => true, 'message' => 'Subject deleted successfully']);
-}
+    public function destroy($id)
+    {
+        try {
+            $subject = Subject::findOrFail($id);
+            $subject->delete();
 
+            return response()->json(['success' => true, 'message' => 'Subject deleted successfully']);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Error deleting subject: ' . $e->getMessage(),
+            ]);
+        }
+    }
 }

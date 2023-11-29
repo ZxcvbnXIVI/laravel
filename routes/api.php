@@ -5,6 +5,9 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BlogPostController;
 use App\Http\Controllers\ApiController;
 use App\Http\Controllers\SubjectController;
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\UserController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -20,14 +23,10 @@ use App\Http\Controllers\SubjectController;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
-Route::apiResource('blog-posts', BlogPostController::class);
-Route::get('/items', [ApiController::class, 'index']);
-Route::get('/items/{id}', [ApiController::class, 'show']);
-// เพิ่ม route สำหรับ CRUD operations ของ subjects
-Route::get('/subjects', [SubjectController::class, 'index']);
-Route::post('/subjects', [SubjectController::class, 'store']); 
-Route::post('/subjects/{subject}', [SubjectController::class, 'update']); //ใช้ put ส่ง formdataไม่ได้
-Route::delete('/subjects/{subject}', [SubjectController::class, 'destroy']);
+Route::apiResource('subjects', SubjectController::class);
+Route::apiResource('categories', CategoryController::class);
+Route::apiResource('users', UserController::class);
+
 
 
 
