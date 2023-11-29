@@ -3,21 +3,26 @@
 namespace App\Http\Controllers;
 
 use App\Models\Video;
+use App\Http\Resources\VideoResource;
 use Illuminate\Http\Request;
-use Illuminate\Validation\ValidationException;
 
 class VideoController extends Controller
 {
     public function index()
     {
-        $videos = Video::all();
-        return response()->json($videos);
+        $videos = Video::with(['subjects', 'categories'])->get();
+        return VideoResource::collection($videos);
+    }
+    public function show($id)
+    {
+        $video = Video::with(['subjects', 'categories'])->findOrFail($id);
+        return new VideoResource($video);
     }
     public function get($id)
 {
     try {
         // ค้นหา Video ตาม ID
-        $video = Video::with('subject', 'category')->findOrFail($id);
+        $video = Video::with('subjects', 'categories')->findOrFail($id);
 
         // Return ผลลัพธ์
         return new VideoResource($video);
@@ -50,11 +55,7 @@ class VideoController extends Controller
         }
     }
 
-    public function show($id)
-    {
-        $video = Video::findOrFail($id);
-        return response()->json($video);
-    }
+
 
     public function update(Request $request, $id)
     {

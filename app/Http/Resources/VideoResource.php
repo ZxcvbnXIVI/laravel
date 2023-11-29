@@ -18,6 +18,9 @@ class VideoResource extends JsonResource
             'ChannelName' => $this->ChannelName,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
+            'subjects' => new SubjectResource($this->whenLoaded('subjects')),
+            'categories' => new CategoryResource($this->whenLoaded('categories')),
         ];
+        
     }
 }

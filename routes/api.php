@@ -30,6 +30,8 @@ Route::apiResource('users', UserController::class);
 Route::apiResource('videos', VideoController::class);
 Route::apiResource('enrollments', EnrollmentController::class);
 Route::apiResource('progress', ProgressController::class);
+Route::get('/videos', [VideoController::class, 'index']);
+Route::get('/videos/{id}', [VideoController::class, 'show']);
 
 
 
