@@ -7,6 +7,7 @@ use App\Http\Controllers\ApiController;
 use App\Http\Controllers\SubjectController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\EnrollmentController;
 
 
 /*
@@ -26,7 +27,9 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::apiResource('subjects', SubjectController::class);
 Route::apiResource('categories', CategoryController::class);
 Route::apiResource('users', UserController::class);
-
+Route::apiResource('videos', VideoController::class);
+Route::apiResource('enrollments', EnrollmentController::class);
+Route::apiResource('progress', ProgressController::class);
 
 
 
