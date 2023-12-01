@@ -2,8 +2,8 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Progress extends Model
 {
@@ -14,7 +14,9 @@ class Progress extends Model
     protected $fillable = [
         'UserID',
         'VideoID',
+        'EnrollmentId',
         'ProgressPercentage',
+        'lastViewedTimestamp',
     ];
 
     public $timestamps = true;
@@ -25,7 +27,12 @@ class Progress extends Model
     }
 
     public function videos()
+{
+    return $this->belongsTo(Video::class, 'VideoID');
+}
+
+    public function enrollments()
     {
-        return $this->belongsTo(Video::class, 'VideoID');
+        return $this->belongsTo(Enrollment::class, 'EnrollmentId');
     }
 }

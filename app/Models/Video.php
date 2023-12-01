@@ -32,5 +32,9 @@ class Video extends Model
     {
         return $this->belongsTo(Category::class, 'CategoryID');
     }
+    public function progress()
+    {
+        return $this->hasMany(Progress::class, 'VideoID');
+    }
     
 }

@@ -10,23 +10,59 @@ class ProgressController extends Controller
 {
     public function index()
     {
-        $progress = Progress::all();
+        $progress = Progress::with(['videos', 'users','enrollments'])->get();
         return ProgressResource::collection($progress);
     }
 
     public function store(Request $request)
-    {
-        // ตรวจสอบและบันทึกข้อมูล
+{
+    try {
+        // ตรวจสอบและสร้างข้อมูล
         $validatedData = $request->validate([
-            'UserID' => 'required',
-            'VideoID' => 'required',
-            'ProgressPercentage' => 'required',
+            'UserID' => 'required|exists:users,UserID',
+            'VideoID' => 'required|exists:videos,VideoID',
+            'EnrollmentId' => 'required|exists:enrollments,EnrollmentID',
+            'ProgressPercentage' => 'required|numeric|min:0|max:100',
+            'lastViewedTimestamp' => 'required|date',
         ]);
 
         $progress = Progress::create($validatedData);
 
+        // โหลดข้อมูล user, video, และ enrollment
+        $progress->load(['user', 'video', 'enrollment']);
+
+        // ส่งกลับข้อมูลในรูปแบบของ ProgressResource
         return new ProgressResource($progress);
+    } catch (\Exception $e) {
+        // จัดการข้อผิดพลาดที่ไม่ได้เกี่ยวกับ validation
+        return response()->json(['error' => 'An error occurred while processing your request.'], 500);
     }
+}
+public function update(Request $request, $id)
+{
+    try {
+        // ตรวจสอบและอัปเดตข้อมูล
+        $validatedData = $request->validate([
+            'UserID' => 'exists:users,UserID',
+            'VideoID' => 'exists:videos,VideoID',
+            'EnrollmentId' => 'exists:enrollments,EnrollmentID',
+            'ProgressPercentage' => 'numeric|min:0|max:100',
+            'lastViewedTimestamp' => 'date',
+        ]);
+
+        $progress = Progress::findOrFail($id);
+        $progress->update($validatedData);
+
+        // โหลดข้อมูล user, video, และ enrollment
+        $progress->load(['user', 'video', 'enrollment']);
+
+        // ส่งกลับข้อมูลในรูปแบบของ ProgressResource
+        return new ProgressResource($progress);
+    } catch (\Exception $e) {
+        // จัดการข้อผิดพลาดที่ไม่ได้เกี่ยวกับ validation
+        return response()->json(['error' => 'An error occurred while processing your request.'], 500);
+    }
+}
 
     public function show($id)
     {
@@ -34,29 +70,17 @@ class ProgressController extends Controller
         return new ProgressResource($progress);
     }
 
-    public function update(Request $request, $id)
-    {
-        // ตรวจสอบและอัปเดตข้อมูล
-        $validatedData = $request->validate([
-            'UserID' => 'required',
-            'VideoID' => 'required',
-            'ProgressPercentage' => 'required',
-        ]);
+  
 
+    
+public function destroy($id)
+{
+    try {
         $progress = Progress::findOrFail($id);
-        $progress->update($validatedData);
-
-        return new ProgressResource($progress);
-    }
-
-    public function destroy($id)
-    {
-        // ค้นหา progress ที่ต้องการลบ
-        $progress = Progress::findOrFail($id);
-
-        // ลบ progress
         $progress->delete();
-
-        return response()->json(['success' => true, 'message' => 'Progress deleted successfully']);
+        return new ProgressResource($progress);
+    } catch (\Exception $e) {
+        return response()->json(['error' => 'An error occurred while processing your request.'], 500);
     }
+}
 }

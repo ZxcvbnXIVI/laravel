@@ -22,4 +22,7 @@ class User extends Model
     public function Enrollments() {
         return $this->hasMany(Enrollment::class);
     }
+    public function Progress() {
+        return $this->hasMany(Progress::class);
+    }
 }

@@ -42,7 +42,7 @@ class VideoController extends Controller
 
     ]);
 
-    $video->load(['subjects', 'categories']); // ให้โหลดข้อมูล subject และ category ทันทีหลังจากการสร้าง
+    $video->load(['subjects', 'categories']); 
 
     return new VideoResource($video);
 }
@@ -80,17 +80,5 @@ public function destroy($id)
     $video->delete();
 
     return response()->json(['message' => 'Video deleted successfully']);
-}
-
-
-
-
-
-  
-
-
-
-  
-
-    
+}   
 }
