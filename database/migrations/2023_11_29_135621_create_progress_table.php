@@ -17,10 +17,13 @@ class CreateProgressTable extends Migration
             $table->id('ProgressID');
             $table->unsignedBigInteger('UserID');
             $table->unsignedBigInteger('VideoID');
+            $table->unsignedBigInteger('EnrollmentId');
             $table->double('ProgressPercentage');
+            $table->datetime('lastViewedTimestamp');
             $table->timestamps();
             $table->foreign('UserID')->references('UserID')->on('users');
             $table->foreign('VideoID')->references('VideoID')->on('videos');
+            $table->foreign('EnrollmentId')->references('EnrollmentId')->on('enrollments');
         });
     }
 

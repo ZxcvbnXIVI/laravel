@@ -17,18 +17,20 @@ class Video extends Model
         'VideoTitle',
         'VideoURL',
         'Thumbnail',
+        'VideoCode',
         'ChannelName',
     ];
 
     public $timestamps = true;
 
-    public function subject()
+    public function subjects()
     {
         return $this->belongsTo(Subject::class, 'SubjectID');
     }
 
-    public function category()
+    public function categories()
     {
         return $this->belongsTo(Category::class, 'CategoryID');
     }
+    
 }

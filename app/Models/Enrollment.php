@@ -20,14 +20,19 @@ class Enrollment extends Model
     public $timestamps = true; // ถ้าคุณใช้ timestamps สามารถเปลี่ยนเป็น false ได้
 
     // Define the relationships with User and Subject models
-    public function user()
+    public function users()
     {
         return $this->belongsTo(User::class, 'UserID');
     }
 
-    public function subject()
+    public function subjects()
     {
         return $this->belongsTo(Subject::class, 'SubjectID');
+    }
+
+    public function Progress()
+    {
+        return $this->belongsTo(Progress::class, 'ProgressID');
     }
 }
 

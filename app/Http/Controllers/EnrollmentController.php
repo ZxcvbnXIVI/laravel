@@ -10,10 +10,8 @@ class EnrollmentController extends Controller
 {
     public function index()
 {
-    // ดึงข้อมูล Enrollment ทั้งหมด
-    $enrollments = Enrollment::all();
 
-    // ส่งกลับข้อมูลในรูปแบบของ EnrollmentResource
+    $enrollments = Enrollment::all();
     return EnrollmentResource::collection($enrollments);
 }
  

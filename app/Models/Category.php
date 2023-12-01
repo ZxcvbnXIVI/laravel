@@ -16,6 +16,9 @@ class Category extends Model
     ];
 
     public $timestamps = true;
+    public function videos() {
+        return $this->hasMany(Video::class);
+    }
 }
 
 

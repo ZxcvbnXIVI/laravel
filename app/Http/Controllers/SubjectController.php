@@ -15,75 +15,70 @@ class SubjectController extends Controller
     return SubjectResource::collection($subjects);
 }
 
-    public function store(Request $request)
-    {
-        try {
-            $request->validate([
-                'SubjectName' => 'required|string',
-                'Description' => 'required|string',
-                'PlaylistLink' => 'required|string',
-            ]);
+public function store(Request $request)
+{
+    try {
+        $request->validate([
+            'SubjectName' => 'required|string',
+            'Description' => 'required|string',
+            'PlaylistLink' => 'required|string',
+        ]);
 
-            $subject = new Subject;
-            $subject->SubjectName = $request->SubjectName;
-            $subject->Description = $request->Description;
-            $subject->PlaylistLink = $request->PlaylistLink;
-            $subject->save();
+        $subject = new Subject;
+        $subject->SubjectName = $request->SubjectName;
+        $subject->Description = $request->Description;
+        $subject->PlaylistLink = $request->PlaylistLink;
+        $subject->save();
 
-            return response()->json([
-                'success' => true,
-                'message' => 'Subject created successfully',
-                'data' => $subject
-            ]);
-        } catch (\Exception $e) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Error creating subject: ' . $e->getMessage(),
-            ]);
-        }
+        // ส่งกลับข้อมูลในรูปแบบของ SubjectResource
+        return new SubjectResource($subject);
+    } catch (\Exception $e) {
+        return response()->json([
+            'success' => false,
+            'message' => 'Error creating subject: ' . $e->getMessage(),
+        ]);
     }
+}
 
-    public function update(Request $request, $id)
-    {
-        try {
-            $subject = Subject::findOrFail($id);
+public function update(Request $request, $id)
+{
+    try {
+        $subject = Subject::findOrFail($id);
 
-            $request->validate([
-                'SubjectName' => 'string',
-                'Description' => 'string',
-                'PlaylistLink' => 'string',
-            ]);
+        $request->validate([
+            'SubjectName' => 'string',
+            'Description' => 'string',
+            'PlaylistLink' => 'string',
+        ]);
 
-            $subject->fill($request->all());
-            $subject->save();
+        $subject->fill($request->all());
+        $subject->save();
 
-            return response()->json([
-                'success' => true,
-                'message' => 'Subject updated successfully',
-                'data' => $subject
-            ]);
-        } catch (\Exception $e) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Error updating subject: ' . $e->getMessage(),
-            ]);
-        }
+        // ใช้ SubjectResource เพื่อรีเทิร์นข้อมูลใหม่
+        return new SubjectResource($subject);
+    } catch (\Exception $e) {
+        return response()->json([
+            'success' => false,
+            'message' => 'Error updating subject: ' . $e->getMessage(),
+        ]);
     }
+}
 
-    public function destroy($id)
-    {
-        try {
-            $subject = Subject::findOrFail($id);
-            $subject->delete();
+public function destroy($id)
+{
+    try {
+        $subject = Subject::findOrFail($id);
+        $subject->delete();
 
-            return response()->json(['success' => true, 'message' => 'Subject deleted successfully']);
-        } catch (\Exception $e) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Error deleting subject: ' . $e->getMessage(),
-            ]);
-        }
+        // ใช้ SubjectResource เพื่อรีเทิร์นข้อมูลที่ถูกลบ
+        return new SubjectResource($subject);
+    } catch (\Exception $e) {
+        return response()->json([
+            'success' => false,
+            'message' => 'Error deleting subject: ' . $e->getMessage(),
+        ]);
     }
+}
 //     public function searchSubjectsContainingM()
 // {
 //     $subjects = Subject::where('SubjectName', 'like', '%M%')->get();

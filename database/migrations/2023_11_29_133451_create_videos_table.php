@@ -22,11 +22,7 @@ class CreateVideosTable extends Migration
             $table->string('Thumbnail');
             $table->string('VideoCode', 255);
             $table->string('ChannelName');
-
-
             $table->timestamps(); // Created at and Updated at timestamps
-
-
             $table->foreign('SubjectID')->references('SubjectID')->on('subjects');
             $table->foreign('CategoryID')->references('CategoryID')->on('categories');
         });

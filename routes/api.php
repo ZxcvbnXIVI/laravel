@@ -31,6 +31,7 @@ Route::apiResource('videos', VideoController::class);
 Route::apiResource('enrollments', EnrollmentController::class);
 Route::post('/enrollments/store', [EnrollmentController::class, 'store']);
 Route::apiResource('progress', ProgressController::class);
+Route::post('/videos', [VideoController::class, 'store']);
 // Route::get('/videos', [VideoController::class, 'index']);
 // Route::get('/videos/{id}', [VideoController::class, 'show']);
 

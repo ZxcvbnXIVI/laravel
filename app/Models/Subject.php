@@ -18,6 +18,8 @@ class Subject extends Model
         'PlaylistLink',
     ];
     public $timestamps = true;
-
+    public function videos() {
+        return $this->hasMany(Video::class);
+    }
 
 }

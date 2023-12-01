@@ -19,12 +19,12 @@ class Progress extends Model
 
     public $timestamps = true;
 
-    public function user()
+    public function users()
     {
         return $this->belongsTo(User::class, 'UserID');
     }
 
-    public function video()
+    public function videos()
     {
         return $this->belongsTo(Video::class, 'VideoID');
     }
