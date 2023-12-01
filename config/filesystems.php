@@ -41,6 +41,10 @@ return [
             'url' => env('APP_URL').'/storage',
             'visibility' => 'public',
         ],
+        'custom_disk' => [
+            'driver' => 'local',
+            'root' => storage_path('app/custom_folder'),
+        ],
 
         's3' => [
             'driver' => 's3',

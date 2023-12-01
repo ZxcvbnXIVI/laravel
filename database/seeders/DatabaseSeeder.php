@@ -9,7 +9,7 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         $this->call([
-            CategoriesTableSeeder::class,
+            SubjectsTableSeeder::class,
             // เพิ่ม Seeders อื่น ๆ ตามต้องการ
         ]);
     }

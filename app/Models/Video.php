@@ -9,8 +9,8 @@ class Video extends Model
 {
     use HasFactory;
 
-    protected $table = 'videos'; // ชื่อตารางในฐานข้อมูล
-    protected $primaryKey = 'VideoID'; // Primary key ของตาราง
+    protected $table = 'videos'; 
+    protected $primaryKey = 'VideoID'; 
     protected $fillable = [
         'SubjectID',
         'CategoryID',
@@ -20,9 +20,8 @@ class Video extends Model
         'ChannelName',
     ];
 
-    public $timestamps = true; // ถ้าคุณใช้ timestamps สามารถเปลี่ยนเป็น false ได้
+    public $timestamps = true;
 
-    // Define the relationships with Subject and Category models
     public function subject()
     {
         return $this->belongsTo(Subject::class, 'SubjectID');

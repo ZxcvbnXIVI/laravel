@@ -9,13 +9,13 @@ use App\Http\Resources\EnrollmentResource;
 class EnrollmentController extends Controller
 {
     public function index()
-    {
-        // ดึงข้อมูล Enrollment ทั้งหมด
-        $enrollments = Enrollment::all();
+{
+    // ดึงข้อมูล Enrollment ทั้งหมด
+    $enrollments = Enrollment::all();
 
-        // ส่งกลับข้อมูลในรูปแบบของ EnrollmentResource
-        return response()->json($enrollments);
-    }
+    // ส่งกลับข้อมูลในรูปแบบของ EnrollmentResource
+    return EnrollmentResource::collection($enrollments);
+}
  
 
     public function show($id)
@@ -27,30 +27,13 @@ class EnrollmentController extends Controller
             // ส่งกลับข้อมูลในรูปแบบของ EnrollmentResource
             return new EnrollmentResource($enrollment);
         } catch (\Exception $e) {
-            // จัดการข้อผิดพลาดที่ไม่ได้เกี่ยวกับ validation
+
             return response()->json(['error' => 'An error occurred while processing your request.'], 500);
         }
     }
 
-    public function store(Request $request)
-    {
-        try {
-            // ตรวจสอบและบันทึกข้อมูล
-            $validatedData = $request->validate([
-                'UserID' => 'required|exists:users,UserID',
-                'SubjectID' => 'required|exists:subjects,SubjectID',
-                'EnrollmentDate' => 'required|date',
-            ]);
 
-            $enrollment = Enrollment::create($validatedData);
-
-            // ส่งกลับข้อมูลในรูปแบบของ EnrollmentResource
-            return new EnrollmentResource($enrollment);
-        } catch (\Exception $e) {
-            // จัดการข้อผิดพลาดที่ไม่ได้เกี่ยวกับ validation
-            return response()->json(['error' => 'An error occurred while processing your request.'], 500);
-        }
-    }
+    
 
     public function update(Request $request, $id)
     {

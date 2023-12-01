@@ -20,6 +20,7 @@ class CreateVideosTable extends Migration
             $table->string('VideoTitle', 255);
             $table->string('VideoURL', 255);
             $table->string('Thumbnail');
+            $table->string('VideoCode', 255);
             $table->string('ChannelName');
 
 

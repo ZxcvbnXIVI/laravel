@@ -11,10 +11,11 @@ class UserResource extends JsonResource
         return [
             'UserID' => $this->UserID,
             'UserName' => $this->UserName,
-            'UserType' => $this->UserType,
-            'EnrollmentDate' => $this->EnrollmentDate,
+            'Role' => $this->Role,
+            'image_path' => $this->image_path,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ];
     }
 }
+

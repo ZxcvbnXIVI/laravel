@@ -4,7 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Category;
-
+use App\Http\Resources\CategoryResource;
+use Illuminate\Validation\ValidationException;
 
 class CategoryController extends Controller
 {
@@ -12,7 +13,7 @@ class CategoryController extends Controller
     public function index()
     {
         $categories = Category::all();
-        return response()->json($categories);
+        return CategoryResource::collection($categories);
     }
 
 
@@ -36,12 +37,18 @@ class CategoryController extends Controller
 
     public function show($id)
     {
-        $category = Category::findOrFail($id);
-        return new CategoryResource($category);
+        try {
+            $category = Category::findOrFail($id);
+            return new CategoryResource($category);
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'Category not found'], 404);
+        }
     }
 
 
-    public function update(Request $request, $id)
+
+
+public function update(Request $request, $id)
 {
     try {
         $validatedData = $request->validate([
@@ -51,7 +58,7 @@ class CategoryController extends Controller
         $category = Category::findOrFail($id);
         $category->update($validatedData);
 
-        return response()->json(['success' => true, 'message' => 'Category updated successfully']);
+        return new CategoryResource($category); // ใช้ CategoryResource ในการสร้าง response
     } catch (ValidationException $e) {
         return response()->json(['error' => $e->errors()], 422);
     } catch (\Exception $e) {
@@ -60,15 +67,20 @@ class CategoryController extends Controller
 }
 
 
-    public function destroy($id)
-    {
-        try {
-            $category = Category::findOrFail($id);
-            $category->delete();
 
-            return response()->json(['message' => 'Category deleted successfully']);
-        } catch (\Exception $e) {
-            return response()->json(['error' => 'An error occurred while processing your request.'], 500);
-        }
+public function destroy($id)
+{
+    try {
+        $category = Category::findOrFail($id);
+        $deletedCategory = clone $category;
+        $category->delete();
+
+        return new CategoryResource($deletedCategory);
+    } catch (\Exception $e) {
+        \Log::error($e->getMessage()); // แสดงข้อความข้อผิดพลาดใน logs
+        return response()->json(['error' => 'An error occurred while processing your request.'], 500);
     }
+}
+
+
 }

@@ -13,9 +13,10 @@ class User extends Model
     protected $primaryKey = 'UserID'; // Primary key ของตาราง
     protected $fillable = [
         'UserName',
-        'UserType',
-        'EnrollmentDate',
+        'password', 
+        'Role',
+        'image_path',
     ];
 
-    public $timestamps = true; // ถ้าคุณใช้ timestamps สามารถเปลี่ยนเป็น false ได้
+    public $timestamps = true; 
 }

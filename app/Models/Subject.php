@@ -18,4 +18,6 @@ class Subject extends Model
         'PlaylistLink',
     ];
     public $timestamps = true;
+
+
 }

@@ -4,14 +4,16 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Subject;
+use App\Http\Resources\SubjectResource;
+use Illuminate\Validation\ValidationException;
 
 class SubjectController extends Controller
 {
     public function index()
-    {
-        $subjects = Subject::all();
-        return response()->json($subjects);
-    }
+{
+    $subjects = Subject::all();
+    return SubjectResource::collection($subjects);
+}
 
     public function store(Request $request)
     {
@@ -82,4 +84,10 @@ class SubjectController extends Controller
             ]);
         }
     }
+//     public function searchSubjectsContainingM()
+// {
+//     $subjects = Subject::where('SubjectName', 'like', '%M%')->get();
+
+//     return $subjects;
+// }
 }
