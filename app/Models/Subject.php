@@ -21,5 +21,8 @@ class Subject extends Model
     public function videos() {
         return $this->hasMany(Video::class);
     }
+    public function Enrollments() {
+        return $this->hasMany(Enrollment::class);
+    }
 
 }

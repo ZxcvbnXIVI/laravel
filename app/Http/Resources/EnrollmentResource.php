@@ -15,6 +15,9 @@ class EnrollmentResource extends JsonResource
             'EnrollmentDate' => $this->EnrollmentDate,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
+            'subjects' => new SubjectResource($this->whenLoaded('subjects')),
+            'users' => new UserResource($this->whenLoaded('users')),
         ];
     }
+   
 }

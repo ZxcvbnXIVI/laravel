@@ -29,10 +29,7 @@ class Enrollment extends Model
     {
         return $this->belongsTo(Subject::class, 'SubjectID');
     }
+    
 
-    public function Progress()
-    {
-        return $this->belongsTo(Progress::class, 'ProgressID');
-    }
 }
 

@@ -19,4 +19,7 @@ class User extends Model
     ];
 
     public $timestamps = true; 
+    public function Enrollments() {
+        return $this->hasMany(Enrollment::class);
+    }
 }

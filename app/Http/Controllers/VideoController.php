@@ -74,6 +74,13 @@ public function update(Request $request, $id)
 
     return new VideoResource($video);
 }
+public function destroy($id)
+{
+    $video = Video::findOrFail($id);
+    $video->delete();
+
+    return response()->json(['message' => 'Video deleted successfully']);
+}
 
 
 
