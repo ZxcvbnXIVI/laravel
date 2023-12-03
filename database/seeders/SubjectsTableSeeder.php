@@ -11,15 +11,23 @@ class SubjectsTableSeeder extends Seeder
     {
         // สร้างข้อมูลทดสอบ
         Subject::create([
-            'SubjectName' => 'Math',
-            'Description' => 'Introduction to Mathematics',
-            'PlaylistLink' => 'https://youtube.com/mathplaylist',
+            'SubjectID' => 1,
+                'CategoryID' => 1,
+                'SubjectName' => "RLCraft ครัวเหลี่ยมข้าวอร่อย",
+                'Description' => "Introduction to RLCraft ครัวเหลี่ยมข้าวอร่อย",
+                'PlaylistLink' => "https://youtube.com/playlist?list=PLfwth3WMQnSMixTxh6NKIxqAGe89t-56H&si=_ZX5xBAIeCx2BDgN",
+                'created_at' => now(),
+                'updated_at' => now(),
         ]);
 
         Subject::create([
-            'SubjectName' => 'Science',
-            'Description' => 'Introduction to Science',
-            'PlaylistLink' => 'https://youtube.com/scienceplaylist',
+            'SubjectID' => 2,
+                'CategoryID' => 2,
+                'SubjectName' => "รวมเรื่องเล่า The Ghost Radio",
+                'Description' => "Introduction to รวมเรื่องเล่า The Ghost Radio",
+                'PlaylistLink' => "https://youtube.com/playlist?list=PLESnSmimWaOyrrEncqo3tQZXWvu-13UwF&si=8Yz-rjkucAHVzRtN",
+                'created_at' => now(),
+                'updated_at' => now(),
         ]);
 
         // เพิ่มข้อมูลเพิ่มเติมตามต้องการ

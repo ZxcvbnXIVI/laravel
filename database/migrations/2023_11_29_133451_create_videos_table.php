@@ -16,7 +16,7 @@ class CreateVideosTable extends Migration
         Schema::create('videos', function (Blueprint $table) {
             $table->id('VideoID'); // Auto-incremental primary key
             $table->unsignedBigInteger('SubjectID');
-            $table->unsignedBigInteger('CategoryID');
+            // $table->unsignedBigInteger('CategoryID');
             $table->string('VideoTitle', 255);
             $table->string('VideoURL', 255);
             $table->string('Thumbnail');
@@ -24,7 +24,7 @@ class CreateVideosTable extends Migration
             $table->string('ChannelName');
             $table->timestamps(); // Created at and Updated at timestamps
             $table->foreign('SubjectID')->references('SubjectID')->on('subjects');
-            $table->foreign('CategoryID')->references('CategoryID')->on('categories');
+            // $table->foreign('CategoryID')->references('CategoryID')->on('categories');
         });
     }
 

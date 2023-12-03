@@ -10,19 +10,19 @@ class VideoController extends Controller
 {
     public function index()
 {
-    $videos = Video::with(['subjects', 'categories'])->get();
+    $videos = Video::with(['subjects'])->get();
     return VideoResource::collection($videos);
 }
     public function show($id)
     {
-        $video = Video::with(['subjects', 'categories'])->findOrFail($id);
+        $video = Video::with(['subjects'])->findOrFail($id);
         return new VideoResource($video);
     }
     public function store(Request $request)
 {
     $request->validate([
         'SubjectID' => 'required',
-        'CategoryID' => 'required',
+        // 'CategoryID' => 'required',
         'VideoTitle' => 'required',
         'VideoURL' => 'required',
         'Thumbnail' => 'required',
@@ -33,7 +33,7 @@ class VideoController extends Controller
 
     $video = Video::create([
         'SubjectID' => $request->input('SubjectID'),
-        'CategoryID' => $request->input('CategoryID'),
+        // 'CategoryID' => $request->input('CategoryID'),
         'VideoTitle' => $request->input('VideoTitle'),
         'VideoURL' => $request->input('VideoURL'),
         'Thumbnail' => $request->input('Thumbnail'),
@@ -50,7 +50,7 @@ public function update(Request $request, $id)
 {
     $request->validate([
         'SubjectID' => 'required',
-        'CategoryID' => 'required',
+        // 'CategoryID' => 'required',
         'VideoTitle' => 'required',
         'VideoURL' => 'required',
         'Thumbnail' => 'required',
@@ -62,7 +62,7 @@ public function update(Request $request, $id)
 
     $video->update([
         'SubjectID' => $request->input('SubjectID'),
-        'CategoryID' => $request->input('CategoryID'),
+        // 'CategoryID' => $request->input('CategoryID'),
         'VideoTitle' => $request->input('VideoTitle'),
         'VideoURL' => $request->input('VideoURL'),
         'Thumbnail' => $request->input('Thumbnail'),

@@ -14,15 +14,21 @@ class Subject extends Model
 
     protected $fillable = [
         'SubjectName',
+        'CategoryID',
         'Description',
         'PlaylistLink',
     ];
     public $timestamps = true;
-    public function videos() {
-        return $this->hasMany(Video::class);
-    }
+    public function videos()
+{
+    return $this->hasMany(Video::class, 'SubjectID', 'SubjectID');
+}
     public function Enrollments() {
         return $this->hasMany(Enrollment::class);
+    }
+    public function categories()
+    {
+        return $this->belongsTo(Category::class, 'CategoryID', 'CategoryID');
     }
 
 }

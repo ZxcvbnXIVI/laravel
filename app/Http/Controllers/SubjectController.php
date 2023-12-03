@@ -9,10 +9,17 @@ use Illuminate\Validation\ValidationException;
 
 class SubjectController extends Controller
 {
-    public function index()
+//     public function index()
+    
+// {
+//     $subjects = Subject::with(['categories'])->get();
+//     return SubjectResource::collection($subjects);
+// }
+public function index()
 {
-    $subjects = Subject::all();
-    return SubjectResource::collection($subjects);
+    $subjectsWithVideosAndCategories = Subject::with('videos', 'categories')->get();
+
+    return SubjectResource::collection($subjectsWithVideosAndCategories);
 }
 
 public function store(Request $request)
@@ -20,12 +27,14 @@ public function store(Request $request)
     try {
         $request->validate([
             'SubjectName' => 'required|string',
+            'CategoryID' => 'required',
             'Description' => 'required|string',
             'PlaylistLink' => 'required|string',
         ]);
 
         $subject = new Subject;
         $subject->SubjectName = $request->SubjectName;
+        $subject->CategoryID = $request->CategoryID;
         $subject->Description = $request->Description;
         $subject->PlaylistLink = $request->PlaylistLink;
         $subject->save();
@@ -47,6 +56,7 @@ public function update(Request $request, $id)
 
         $request->validate([
             'SubjectName' => 'string',
+            'CategoryID' =>'integer',
             'Description' => 'string',
             'PlaylistLink' => 'string',
         ]);
@@ -79,10 +89,15 @@ public function destroy($id)
         ]);
     }
 }
-//     public function searchSubjectsContainingM()
-// {
-//     $subjects = Subject::where('SubjectName', 'like', '%M%')->get();
+public function show($subjectID)
+    {
+        $subjectWithVideos = Subject::with('videos')->find($subjectID);
 
-//     return $subjects;
-// }
+        if (!$subjectWithVideos) {
+            return response()->json(['message' => 'Subject not found'], 404);
+        }
+
+        return new SubjectResource($subjectWithVideos);
+    }
+
 }

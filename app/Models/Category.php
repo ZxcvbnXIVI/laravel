@@ -12,12 +12,14 @@ class Category extends Model
     protected $table = 'categories';
     protected $primaryKey = 'CategoryID';
     protected $fillable = [
-        'CategoryName'
+        'CategoryName',
+        'CategoryImage'
     ];
 
     public $timestamps = true;
-    public function videos() {
-        return $this->hasMany(Video::class);
+    public function subjects()
+    {
+        return $this->hasMany(Subject::class, 'CategoryID', 'CategoryID');
     }
 }
 

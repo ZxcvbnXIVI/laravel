@@ -20,19 +20,42 @@ class CategoryController extends Controller
     public function store(Request $request)
     {
         try {
-            $validatedData = $request->validate([
-                'CategoryName' => 'required|max:255',
+            $request->validate([
+                'CategoryName' => 'required',
+                'CategoryImage' => 'required',
+                // Add any other validation rules for other fields
             ]);
-
-            $category = Category::create($validatedData);
-
+    
+            $category = Category::create([
+                'CategoryName' => $request->input('CategoryName'),
+                'CategoryImage' => $request->input('CategoryImage'),
+                // Add any other fields as needed
+            ]);
+    
             return new CategoryResource($category);
-        } catch (ValidationException $e) {
-            return response()->json(['error' => $e->errors()], 422);
         } catch (\Exception $e) {
-            return response()->json(['error' => 'An error occurred while processing your request.'], 500);
+            return response()->json(['error' => $e->getMessage()], 500);
         }
     }
+    
+        // $image = $request->file('image');
+        // $imageName = time() . '.' . $image->extension();
+
+        // // Save the image to storage (if needed)
+        // $image->storeAs('public/uploads', $imageName);
+
+        // // Use the image path directly without storing the file
+        // $categoryData = array_merge($validatedData, ['image_path' => 'public/uploads/' . $imageName]);
+        // $category = Category::create($categoryData);
+
+    //     return response()->json(['category' => new CategoryResource($category)], 201);
+    // } catch (ValidationException $e) {
+    //     return response()->json(['error' => $e->errors()], 422);
+    // } catch (\Exception $e) {
+    //     return response()->json(['error' => 'An error occurred while processing your request.'], 500);
+    // }
+
+
 
 
     public function show($id)
@@ -48,23 +71,30 @@ class CategoryController extends Controller
 
 
 
-public function update(Request $request, $id)
-{
-    try {
-        $validatedData = $request->validate([
-            'CategoryName' => 'required|max:255',
-        ]);
-
-        $category = Category::findOrFail($id);
-        $category->update($validatedData);
-
-        return new CategoryResource($category); // ใช้ CategoryResource ในการสร้าง response
-    } catch (ValidationException $e) {
-        return response()->json(['error' => $e->errors()], 422);
-    } catch (\Exception $e) {
-        return response()->json(['error' => 'An error occurred while processing your request.'], 500);
+    public function update(Request $request, $id)
+    {
+        try {
+            $request->validate([
+                'CategoryName' => 'required',
+                'CategoryImage' => 'required',
+                // Add any other validation rules for other fields
+            ]);
+    
+            $category = Category::findOrFail($id);
+    
+            $category->update([
+                'CategoryName' => $request->input('CategoryName'),
+                'CategoryImage' => $request->input('CategoryImage'),
+                // Add any other fields as needed
+            ]);
+    
+            return new CategoryResource($category);
+        } catch (\Exception $e) {
+            return response()->json(['error' => $e->getMessage()], 500);
+        }
     }
-}
+    
+
 
 
 

@@ -13,7 +13,7 @@ class Video extends Model
     protected $primaryKey = 'VideoID'; 
     protected $fillable = [
         'SubjectID',
-        'CategoryID',
+        // 'CategoryID',
         'VideoTitle',
         'VideoURL',
         'Thumbnail',
@@ -22,16 +22,16 @@ class Video extends Model
     ];
 
     public $timestamps = true;
-
     public function subjects()
     {
-        return $this->belongsTo(Subject::class, 'SubjectID');
+        return $this->belongsTo(Subject::class, 'SubjectID', 'SubjectID');
     }
+    // public function subjects()
+    // {
+    //     return $this->belongsTo(Subject::class, 'SubjectID');
+    // }
 
-    public function categories()
-    {
-        return $this->belongsTo(Category::class, 'CategoryID');
-    }
+    
     public function progress()
     {
         return $this->hasMany(Progress::class, 'VideoID');
