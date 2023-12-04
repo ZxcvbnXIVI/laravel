@@ -10,12 +10,10 @@ class CreateSubjectsTable extends Migration
     {
         Schema::create('subjects', function (Blueprint $table) {
             $table->id('SubjectID');
-            $table->unsignedBigInteger('CategoryID');
             $table->string('SubjectName', 255);
             $table->text('Description');
             $table->string('PlaylistLink', 255);
             $table->timestamps();
-            $table->foreign('CategoryID')->references('CategoryID')->on('categories');
         });
     }
 

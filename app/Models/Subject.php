@@ -14,7 +14,7 @@ class Subject extends Model
 
     protected $fillable = [
         'SubjectName',
-        'CategoryID',
+        // 'CategoryID',
         'Description',
         'PlaylistLink',
     ];
@@ -26,9 +26,9 @@ class Subject extends Model
     public function Enrollments() {
         return $this->hasMany(Enrollment::class);
     }
-    public function categories()
-    {
-        return $this->belongsTo(Category::class, 'CategoryID', 'CategoryID');
-    }
+    // public function categories()
+    // {
+    //     return $this->belongsTo(Category::class, 'CategoryID', 'CategoryID');
+    // }
 
 }

@@ -17,9 +17,9 @@ class Category extends Model
     ];
 
     public $timestamps = true;
-    public function subjects()
+    public function videos()
     {
-        return $this->hasMany(Subject::class, 'CategoryID', 'CategoryID');
+        return $this->belongsToMany(Video::class, 'video_category', 'category_id', 'video_id');
     }
 }
 
