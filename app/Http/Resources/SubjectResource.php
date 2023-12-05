@@ -10,13 +10,13 @@ class SubjectResource extends JsonResource
     {
         return [
             'SubjectID' => $this->SubjectID,
-            'CategoryID'=> $this->CategoryID,
+            // 'CategoryID'=> $this->CategoryID,
             'SubjectName' => $this->SubjectName,
             'Description' => $this->Description,
             'PlaylistLink' => $this->PlaylistLink,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
-            'categories' => new CategoryResource($this->whenLoaded('categories')),
+            // 'categories' => new CategoryResource($this->whenLoaded('categories')),
             'videos' => VideoResource::collection($this->whenLoaded('videos')),
         ];
     }
