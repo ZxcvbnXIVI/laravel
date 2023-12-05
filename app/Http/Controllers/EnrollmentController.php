@@ -15,61 +15,61 @@ class EnrollmentController extends Controller
     }
 
 
-public function show($id)
-{
-    try {
-        $enrollment = Enrollment::findOrFail($id);
-        return new EnrollmentResource($enrollment);
-    } catch (\Exception $e) {
-        return response()->json(['error' => 'An error occurred while processing your request.'], 500);
+    public function show($id)
+    {
+        try {
+            $enrollment = Enrollment::findOrFail($id);
+            return new EnrollmentResource($enrollment);
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'An error occurred while processing your request.'], 500);
+        }
     }
-}
-public function store(Request $request)
-{
-    try {
-        // ตรวจสอบและสร้างข้อมูล
-        $validatedData = $request->validate([
-            'UserID' => 'required|exists:users,UserID',
-            'SubjectID' => 'required|exists:subjects,SubjectID',
-            'EnrollmentDate' => 'required|date',
-        ]);
+    public function store(Request $request)
+    {
+        try {
+            // ตรวจสอบและสร้างข้อมูล
+            $validatedData = $request->validate([
+                'UserID' => 'required|exists:users,UserID',
+                'SubjectID' => 'required|exists:subjects,SubjectID',
+                'EnrollmentDate' => 'required|date',
+            ]);
 
-        $enrollment = Enrollment::create($validatedData);
+            $enrollment = Enrollment::create($validatedData);
 
-        // โหลดข้อมูล user และ subject
-        $enrollment->load(['users', 'subjects']);
+            // โหลดข้อมูล user และ subject
+            $enrollment->load(['users', 'subjects']);
 
-        // ส่งกลับข้อมูลในรูปแบบของ EnrollmentResource
-        return new EnrollmentResource($enrollment);
-    } catch (\Exception $e) {
-        // จัดการข้อผิดพลาดที่ไม่ได้เกี่ยวกับ validation
-        return response()->json(['error' => 'An error occurred while processing your request.'], 500);
+            // ส่งกลับข้อมูลในรูปแบบของ EnrollmentResource
+            return new EnrollmentResource($enrollment);
+        } catch (\Exception $e) {
+            // จัดการข้อผิดพลาดที่ไม่ได้เกี่ยวกับ validation
+            return response()->json(['error' => 'An error occurred while processing your request.'], 500);
+        }
     }
-}
 
 
-    
 
-public function update(Request $request, $id)
-{
-    try {
-        // ตรวจสอบและอัปเดตข้อมูล
-        $validatedData = $request->validate([
-            'UserID' => 'exists:users,UserID',
-            'SubjectID' => 'exists:subjects,SubjectID',
-            'EnrollmentDate' => 'date',
-        ]);
 
-        $enrollment = Enrollment::findOrFail($id);
-        $enrollment->update($validatedData);
+    public function update(Request $request, $id)
+    {
+        try {
+            // ตรวจสอบและอัปเดตข้อมูล
+            $validatedData = $request->validate([
+                'UserID' => 'exists:users,UserID',
+                'SubjectID' => 'exists:subjects,SubjectID',
+                'EnrollmentDate' => 'date',
+            ]);
 
-        // ส่งกลับข้อมูลในรูปแบบของ EnrollmentResource
-        return new EnrollmentResource($enrollment);
-    } catch (\Exception $e) {
-        // จัดการข้อผิดพลาดที่ไม่ได้เกี่ยวกับ validation
-        return response()->json(['error' => 'An error occurred while processing your request.'], 500);
+            $enrollment = Enrollment::findOrFail($id);
+            $enrollment->update($validatedData);
+
+            // ส่งกลับข้อมูลในรูปแบบของ EnrollmentResource
+            return new EnrollmentResource($enrollment);
+        } catch (\Exception $e) {
+            // จัดการข้อผิดพลาดที่ไม่ได้เกี่ยวกับ validation
+            return response()->json(['error' => 'An error occurred while processing your request.'], 500);
+        }
     }
-}
 
     public function destroy($id)
     {
@@ -86,5 +86,17 @@ public function update(Request $request, $id)
             return response()->json(['error' => 'An error occurred while processing your request.'], 500);
         }
     }
-}
 
+    //get enrollment by user id
+    public function getEnrollmentByUserID($id)
+    {
+        try {
+            $enrollments = Enrollment::where('UserID', $id)->get();
+            $enrollmentResources = EnrollmentResource::collection($enrollments);
+            return $enrollmentResources;
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'An error occurred while processing your request.'], 500);
+        }
+    }
+    
+}
