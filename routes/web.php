@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BlogController;
+use App\Http\Controllers\WebController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -14,7 +16,13 @@ use App\Http\Controllers\BlogController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-Route::get('/blogs', [BlogController::class, 'index']);
+// Route::get('/', function () {
+//     return view('welcome');
+// });
+Route::get('/', [WebController::class, 'showMainPage']);
+// Route::get('/login', 'App\Http\Controllers\AuthController@showLoginForm')->name('login');
+// Route::post('/login', 'App\Http\Controllers\AuthController@login');
+// Route::get('/subjects/create', [SubjectController::class, 'create'])->name('subjects.create');
+// Route::post('/subjects', [SubjectController::class, 'store'])->name('subjects.store');
+
+

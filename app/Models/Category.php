@@ -19,7 +19,7 @@ class Category extends Model
     public $timestamps = true;
     public function videos()
     {
-        return $this->belongsToMany(Video::class, 'video_category', 'category_id', 'video_id');
+        return $this->belongsToMany(Video::class, 'videolinkcategory', 'CategoryID', 'VideoID');
     }
 }
 

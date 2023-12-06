@@ -4,13 +4,13 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class VideoCategoryResource extends JsonResource
+class VideoLinkCategoryResource extends JsonResource
 {
     public function toArray($request)
     {
         return [
-            'video_id' => $this->video_id,
-            'category_id' => $this->category_id,
+            'VideoID' => $this->VideoID,
+            'CategoryID' => $this->CategoryID,
             'video' => new VideoResource($this->whenLoaded('video')),
             'category' => new CategoryResource($this->whenLoaded('category')),
         ];

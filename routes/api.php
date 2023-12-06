@@ -8,6 +8,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\EnrollmentController;
 use App\Http\Controllers\VideoController;
 use App\Http\Controllers\ProgressController;
+use App\Http\Controllers\VideoLinkCategoryController;
 
 
 /*
@@ -29,9 +30,12 @@ Route::apiResource('categories', CategoryController::class);
 Route::apiResource('users', UserController::class);
 Route::apiResource('videos', VideoController::class);
 Route::apiResource('enrollments', EnrollmentController::class);
-Route::post('/enrollments/store', [EnrollmentController::class, 'store']);
 Route::apiResource('progress', ProgressController::class);
-Route::post('/videos', [VideoController::class, 'store']);
+Route::apiResource('videolink', VideoLinkCategoryController::class);
+// Route::apiResource('videolinkcategory', VideoLinkCategoryController::class);
+// Route::post('/enrollments/store', [EnrollmentController::class, 'store']);
+// Route::post('/videos', [VideoController::class, 'store']);
+
 // Route::get('/videos', [VideoController::class, 'index']);
 // Route::get('/videos/{id}', [VideoController::class, 'show']);
 

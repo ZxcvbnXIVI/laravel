@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class VideoLinkCategory extends Model
+class VideoLinkCategory7 extends Model
 {
     use HasFactory;
 

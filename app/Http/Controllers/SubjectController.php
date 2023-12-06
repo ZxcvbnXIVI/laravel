@@ -21,6 +21,10 @@ public function index()
 
     return SubjectResource::collection($subjectsWithVideosAndCategories);
 }
+public function create()
+    {
+        return view('subjects.create');
+    }
 
 public function store(Request $request)
 {
