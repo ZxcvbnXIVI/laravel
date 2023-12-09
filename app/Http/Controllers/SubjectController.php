@@ -15,16 +15,14 @@ class SubjectController extends Controller
 //     $subjects = Subject::with(['categories'])->get();
 //     return SubjectResource::collection($subjects);
 // }
+// YourController.php
+
 public function index()
 {
-    // $subjectsWithVideosAndCategories = Subject::with('videos')->get();
-
-    // return SubjectResource::collection($subjectsWithVideosAndCategories);
     $subjectsWithVideosAndCategories = Subject::with(['videos.categories'])->get();
-
     return SubjectResource::collection($subjectsWithVideosAndCategories);
 }
-   
+
 
 public function create()
     {

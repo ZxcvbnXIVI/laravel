@@ -29,9 +29,16 @@ class Video extends Model
     {
         return $this->hasMany(Progress::class, 'VideoID');
     }
+    // public function categories()
+    // {
+    //     return $this->belongsToMany(Category::class, 'videolinkcategory', 'VideoID', 'CategoryID');
+    // }
     public function categories()
     {
-        return $this->belongsToMany(Category::class, 'videolinkcategory', 'VideoID', 'CategoryID');
+        return $this->belongsToMany(Category::class, 'videolinkcategory', 'VideoID', 'CategoryID')
+            ->join('categories as vlcc', 'vlcc.CategoryID', '=', 'videolinkcategory.CategoryID');
     }
+
+
     
 }
