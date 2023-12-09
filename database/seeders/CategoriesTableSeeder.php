@@ -13,7 +13,7 @@ class CategoriesTableSeeder extends Seeder
         Category::create([
                 'CategoryID' => 1,
                 'CategoryName' => "ธรรมะ",
-
+'CategoryImage'=> 'https://cdn.discordapp.com/attachments/1176177405715558520/1179822866708041778/image.png',
 
                 'created_at' => now(),
                 'updated_at' => now(),
@@ -22,6 +22,7 @@ class CategoriesTableSeeder extends Seeder
         Category::create([
                 'CategoryID' => 2,
                 'CategoryName' => "รวมเรื่องเล่า The Ghost Radio",
+                'CategoryImage'=> "https://cdn.discordapp.com/attachments/1176177405715558520/1179822866934550600/image.png",
 
                 'created_at' => now(),
                 'updated_at' => now(),

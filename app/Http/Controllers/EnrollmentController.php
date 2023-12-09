@@ -87,16 +87,20 @@ class EnrollmentController extends Controller
         }
     }
 
-    //get enrollment by user id
+  
+     
     public function getEnrollmentByUserID($id)
-    {
-        try {
-            $enrollments = Enrollment::where('UserID', $id)->get();
-            $enrollmentResources = EnrollmentResource::collection($enrollments);
-            return $enrollmentResources;
-        } catch (\Exception $e) {
-            return response()->json(['error' => 'An error occurred while processing your request.'], 500);
-        }
+{
+    try {
+        // Assuming there is a 'progress' relationship defined in the Enrollment model
+        $enrollments = Enrollment::with(['progress' => function ($query) use ($id) {
+            $query->where('UserID', $id);
+        }])->where('UserID', $id)->get();
+
+        return response()->json(['data' => $enrollments], 200);
+    } catch (\Exception $e) {
+        return response()->json(['error' => 'An error occurred while processing your request.'], 500);
     }
-    
+}
+
 }

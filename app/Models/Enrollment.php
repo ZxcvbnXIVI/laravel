@@ -30,8 +30,10 @@ class Enrollment extends Model
         return $this->belongsTo(Subject::class, 'SubjectID');
     }
     public function Progress() {
-        return $this->hasMany(Progress::class,'ProgressID');
+        return $this->hasMany(Progress::class, 'EnrollmentId', 'EnrollmentID');
+        // return $this->hasMany(Progress::class, 'EnrollmentID');
     }
+
     
 
 }

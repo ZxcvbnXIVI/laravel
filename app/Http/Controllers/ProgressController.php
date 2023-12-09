@@ -1,9 +1,10 @@
 <?php
 
 namespace App\Http\Controllers;
-
+// use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Http\Request;
-use App\Models\Progress;
+use App\Models\Progress; 
 use App\Http\Resources\ProgressResource;
 
 class ProgressController extends Controller
@@ -83,4 +84,38 @@ public function destroy($id)
         return response()->json(['error' => 'An error occurred while processing your request.'], 500);
     }
 }
+//get progess by user id
+public function getProgressByUserId($id)
+{
+    try {
+        $progress = Progress::where('UserID', $id)->get();
+        return ProgressResource::collection($progress);
+    } catch (\Exception $e) {
+        return response()->json(['error' => 'An error occurred while processing your request.'], 500);
+    }
+}
+// update persentage in progress by progress id
+
+public function updateProgressPercentage(Request $request)
+    {
+        $progressId = $request->input('ProgressID');
+        $progressPercentage = $request->input('ProgressPercentage');
+
+        // Find the progress record by ID
+        $progress = Progress::find($progressId);
+
+        if (!$progress) {
+            // Handle the case when the progress record is not found
+            return response()->json(['error' => 'Progress not found'], 404);
+        }
+
+        // Update the ProgressPercentage column
+        $progress->ProgressPercentage = $progressPercentage;
+        $progress->save();
+
+        return response()->json(['message' => 'Progress percentage updated successfully']);
+    }
+
+
+
 }

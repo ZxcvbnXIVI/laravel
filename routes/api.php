@@ -33,8 +33,11 @@ Route::post('/enrollments/store', [EnrollmentController::class, 'store']);
 Route::get('/enrollments/user/{id}', [EnrollmentController::class, 'getEnrollmentByUserID']);
 Route::apiResource('progress', ProgressController::class);
 Route::post('/videos', [VideoController::class, 'store']);
-// Route::get('/videos', [VideoController::class, 'index']);
-// Route::get('/videos/{id}', [VideoController::class, 'show']);
+// get progress by user id
+Route::get('/progress/user/{id}', [ProgressController::class, 'getProgressByUserID']);
+// update persentage by progress id
+Route::put('/progress/percentage/{id}', [ProgressController::class, 'updateProgressPercentage']);
+
 
 
 
