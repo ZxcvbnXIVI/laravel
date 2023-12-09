@@ -25,4 +25,5 @@ class User extends Model
     public function Progress() {
         return $this->hasMany(Progress::class);
     }
+    
 }
