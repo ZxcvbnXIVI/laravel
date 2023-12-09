@@ -13,7 +13,7 @@ class ProgressSeeder extends Seeder
         Progress::create([
             'UserID' => 1,
             'VideoID' => 1,
-            'EnrollmentId' => 2,
+            'EnrollmentId' => 1,
             'ProgressPercentage' => 50,
             'lastViewedTimestamp' => now(),
             'created_at' => now(),
@@ -22,7 +22,7 @@ class ProgressSeeder extends Seeder
         Progress::create([
             'UserID' => 1,
             'VideoID' => 2,
-            'EnrollmentId' => 2,
+            'EnrollmentId' => 1,
             'ProgressPercentage' => 50,
             'lastViewedTimestamp' => now(),
             'created_at' => now(),
@@ -31,7 +31,7 @@ class ProgressSeeder extends Seeder
         Progress::create([
             'UserID' => 1,
             'VideoID' => 3,
-            'EnrollmentId' => 3,
+            'EnrollmentId' => 2,
             'ProgressPercentage' => 50,
             'lastViewedTimestamp' => now(),
             'created_at' => now(),
@@ -40,7 +40,7 @@ class ProgressSeeder extends Seeder
         Progress::create([
             'UserID' => 1,
             'VideoID' => 4,
-            'EnrollmentId' => 3,
+            'EnrollmentId' => 2,
             'ProgressPercentage' => 50,
             'lastViewedTimestamp' => now(),
             'created_at' => now(),

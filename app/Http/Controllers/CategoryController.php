@@ -107,7 +107,7 @@ public function destroy($id)
 
         return new CategoryResource($deletedCategory);
     } catch (\Exception $e) {
-        \Log::error($e->getMessage()); // แสดงข้อความข้อผิดพลาดใน logs
+        // \Log::error($e->getMessage()); // แสดงข้อความข้อผิดพลาดใน logs
         return response()->json(['error' => 'An error occurred while processing your request.'], 500);
     }
 }

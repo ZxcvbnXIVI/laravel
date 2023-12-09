@@ -17,10 +17,15 @@ class SubjectController extends Controller
 // }
 public function index()
 {
-    $subjectsWithVideosAndCategories = Subject::with('videos')->get();
+    // $subjectsWithVideosAndCategories = Subject::with('videos')->get();
+
+    // return SubjectResource::collection($subjectsWithVideosAndCategories);
+    $subjectsWithVideosAndCategories = Subject::with(['videos.categories'])->get();
 
     return SubjectResource::collection($subjectsWithVideosAndCategories);
 }
+   
+
 public function create()
     {
         return view('subjects.create');
