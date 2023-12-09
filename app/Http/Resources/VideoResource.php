@@ -11,7 +11,6 @@ class VideoResource extends JsonResource
         return [
             'VideoID' => $this->VideoID,
             'SubjectID' => $this->SubjectID,
-            // 'CategoryID' => $this->CategoryID,
             'VideoTitle' => $this->VideoTitle,
             'VideoURL' => $this->VideoURL,
             'Thumbnail' => $this->Thumbnail,
@@ -19,7 +18,8 @@ class VideoResource extends JsonResource
             'VideoCode'=>$this->VideoCode,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
-            'subjects' => new SubjectResource($this->whenLoaded('subjects')),           
+            'subjects' => new SubjectResource($this->whenLoaded('subjects')),    
+            
         ];
         
     }
