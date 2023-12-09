@@ -17,6 +17,7 @@ class CreateVideolinkcategoryTable extends Migration
             $table->id();
             $table->unsignedBigInteger('VideoID');
             $table->unsignedBigInteger('CategoryID');
+            $table->unsignedBigString('VideoCode');
             $table->timestamps();
         
             // กำหนดความสัมพันธ์กับตาราง videos

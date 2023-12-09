@@ -20,4 +20,18 @@ class SubjectResource extends JsonResource
             'videos' => VideoResource::collection($this->whenLoaded('videos')),
         ];
     }
+
+
+    // public function toArray($request)
+    // {
+    //     return [
+    //         'SubjectID' => $this->SubjectID,
+    //         'SubjectName' => $this->SubjectName,
+    //         'Description' => $this->Description,
+    //         'PlaylistLink' => $this->PlaylistLink,
+    //         'videos' => VideoResource::collection($this->whenLoaded('videos')),
+    //     ];
+    // }
+
+
 }

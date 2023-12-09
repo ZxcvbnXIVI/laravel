@@ -6,9 +6,11 @@ use App\Http\Controllers\SubjectController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\EnrollmentController;
+use App\Http\Controllers\FavoriteController;
 use App\Http\Controllers\VideoController;
 use App\Http\Controllers\ProgressController;
 use App\Http\Controllers\VideoLinkCategoryController;
+use App\Http\Controllers\BookmarkController;
 
 
 /*
@@ -31,16 +33,23 @@ Route::apiResource('users', UserController::class);
 Route::apiResource('videos', VideoController::class);
 Route::apiResource('enrollments', EnrollmentController::class);
 Route::apiResource('videolink', VideoLinkCategoryController::class);
+Route::apiResource('bookmark', BookmarkController::class);
+Route::apiResource('favorites', FavoriteController::class);
+
 
 Route::post('/enrollments/store', [EnrollmentController::class, 'store']);
 Route::get('/enrollments/user/{id}', [EnrollmentController::class, 'getEnrollmentByUserID']);
 Route::apiResource('progress', ProgressController::class);
 
 Route::post('/videos', [VideoController::class, 'store']);
-// get progress by user id
 Route::get('/progress/user/{id}', [ProgressController::class, 'getProgressByUserID']);
-// update persentage by progress id
 Route::put('/progress/percentage/{id}', [ProgressController::class, 'updateProgressPercentage']);
+
+Route::get('/favorites/user/{id}', [FavoriteController::class, 'getFavoriteByUserId']);
+Route::get('/bookmark/user/{id}', [BookmarkController::class, 'getBookmarkByUserId']);
+
+
+
 // Route::apiResource('videolinkcategory', VideoLinkCategoryController::class);
 // Route::post('/enrollments/store', [EnrollmentController::class, 'store']);
 // Route::post('/videos', [VideoController::class, 'store']);

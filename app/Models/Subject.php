@@ -19,9 +19,10 @@ class Subject extends Model
     ];
     public $timestamps = true;
     public function videos()
-{
-    return $this->hasMany(Video::class, 'SubjectID', 'SubjectID');
-}
+    {
+        return $this->hasMany(Video::class, 'SubjectID', 'SubjectID')->with('categories');
+    }
+
     public function Enrollments() {
         return $this->hasMany(Enrollment::class);
     }
