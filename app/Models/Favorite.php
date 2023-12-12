@@ -14,11 +14,10 @@ class Favorite extends Model
     protected $primaryKey = 'id'; // Specify the primary key if it's different
 
     protected $fillable = [
-        // Define the fillable fields
-        'user_id',
-        'video_id',
-        
+        'UserID',
+        'VideoID',
     ];
+    
 
     // Relationships or other model methods can be added here
 }

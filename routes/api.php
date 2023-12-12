@@ -35,18 +35,23 @@ Route::apiResource('enrollments', EnrollmentController::class);
 Route::apiResource('videolink', VideoLinkCategoryController::class);
 Route::apiResource('bookmark', BookmarkController::class);
 Route::apiResource('favorites', FavoriteController::class);
+Route::apiResource('progress', ProgressController::class);
 
 
 Route::post('/enrollments/store', [EnrollmentController::class, 'store']);
 Route::get('/enrollments/user/{id}', [EnrollmentController::class, 'getEnrollmentByUserID']);
-Route::apiResource('progress', ProgressController::class);
 
 Route::post('/videos', [VideoController::class, 'store']);
 Route::get('/progress/user/{id}', [ProgressController::class, 'getProgressByUserID']);
 Route::put('/progress/percentage/{id}', [ProgressController::class, 'updateProgressPercentage']);
 
 Route::get('/favorites/user/{id}', [FavoriteController::class, 'getFavoriteByUserId']);
+Route::post('/favorites', [FavoriteController::class, 'store']);
+Route::delete('/favorites/{id}', [FavoriteController::class, 'destroy']);
+
 Route::get('/bookmark/user/{id}', [BookmarkController::class, 'getBookmarkByUserId']);
+Route::post('/bookmark', [BookmarkController::class, 'store']);
+Route::delete('/bookmark/{id}', [BookmarkController::class, 'destroy']);
 
 
 

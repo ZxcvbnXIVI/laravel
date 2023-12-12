@@ -10,10 +10,10 @@ class Bookmark extends Model
     use HasFactory;
 
     protected $fillable = [
-        // Define the fillable fields
-        'user_id',
-        'video_id',
+        'UserID',
+        'VideoID',
     ];
+    
 
     // Relationships or other model methods can be added here
 }
