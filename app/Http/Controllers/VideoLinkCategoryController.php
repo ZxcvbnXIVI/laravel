@@ -60,16 +60,29 @@ class VideoLinkCategoryController extends Controller
                 ->select('videos.*', 'videolinkcategory.*') // Select all columns from both tables
                 ->get();
     
-            // Convert the data into a Resource Collection
-            $videoLinkCategoriesResource = VideoLinkCategoryResource::collection($videoLinkCategories);
+            // Extract only the relevant video information
+            $videoData = $videoLinkCategories->map(function ($item) {
+                return [
+                    "VideoID" => $item->VideoID,
+                    "SubjectID" => $item->SubjectID,
+                    "VideoTitle" => $item->VideoTitle,
+                    "VideoURL" => $item->VideoURL,
+                    "Thumbnail" => $item->Thumbnail,
+                    "ChannelName" => $item->ChannelName,
+                    "VideoCode" => $item->VideoCode,
+                    "created_at" => $item->created_at,
+                    "updated_at" => $item->updated_at,
+                ];
+            });
     
-            // Return the data to the client using the Resource Collection
-            return $videoLinkCategoriesResource;
+            // Return the data to the client
+            return response()->json(['data' => $videoData], 200);
         } catch (\Exception $e) {
             // Handle errors
             return response()->json(['error' => $e->getMessage()], 500);
         }
     }
+    
     
 
 
