@@ -41,7 +41,7 @@ class VideoLinkCategoryController extends Controller
             $videoLinkCategoriesResource = VideoLinkCategory::create($validatedData);
 
             // คืนข้อมูลให้กับ client โดยใช้ Resource
-            return new VideoLinkCategoryResource($videoLinkCategories);
+            return new VideoLinkCategoryResource($videoLinkCategoriesResource);
         } catch (ValidationException $e) {
             // กรณีเกิดข้อผิดพลาดในการ validate
             return response()->json(['error' => $e->errors()], 422);
@@ -50,6 +50,29 @@ class VideoLinkCategoryController extends Controller
             return response()->json(['error' => $e->getMessage()], 500);
         }
     }
+    public function getVdoByCategoryID($id)
+    {
+        try {
+            // Retrieve data with the join operation and eager load the 'video' relationship
+            $videoLinkCategories = VideoLinkCategory::with('video')
+                ->join('videos', 'videos.VideoID', '=', 'videolinkcategory.VideoID')
+                ->where('videolinkcategory.CategoryID', $id)
+                ->select('videos.*', 'videolinkcategory.*') // Select all columns from both tables
+                ->get();
+    
+            // Convert the data into a Resource Collection
+            $videoLinkCategoriesResource = VideoLinkCategoryResource::collection($videoLinkCategories);
+    
+            // Return the data to the client using the Resource Collection
+            return $videoLinkCategoriesResource;
+        } catch (\Exception $e) {
+            // Handle errors
+            return response()->json(['error' => $e->getMessage()], 500);
+        }
+    }
+    
+
+
 
 
 

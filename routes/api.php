@@ -53,6 +53,8 @@ Route::get('/bookmark/user/{id}', [BookmarkController::class, 'getBookmarkByUser
 Route::post('/bookmark', [BookmarkController::class, 'store']);
 Route::delete('/bookmark/{id}', [BookmarkController::class, 'destroy']);
 
+Route::get('/video/category/{id}', [VideoLinkCategoryController::class, 'getVdoByCategoryID']);
+
 
 
 // Route::apiResource('videolinkcategory', VideoLinkCategoryController::class);
